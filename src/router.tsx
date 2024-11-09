@@ -12,9 +12,11 @@ import TestLayout from "./pages/Test";
 const router: RouteObject[] = [
     {
         path: "/",
-        element: <TestProvider>
-                    <Outlet/>
-                </TestProvider>,
+        element: (
+            <TestProvider>
+                <Outlet />
+            </TestProvider>
+        ),
         children: [
             {
                 path: "test",
@@ -23,7 +25,7 @@ const router: RouteObject[] = [
                     {
                         // first page where we define level or etc, not decided yet
                         path: "welcome",
-                        element: <TestWelcomePage />
+                        element: <TestWelcomePage />,
                     },
                     {
                         path: "one",
@@ -49,10 +51,10 @@ const router: RouteObject[] = [
             },
             {
                 path: "/jobs",
-                element: <Jobs/>
-            }
-        ]
+                element: <Jobs />,
+            },
+        ],
     },
-]
+];
 
 export default router;
