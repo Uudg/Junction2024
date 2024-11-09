@@ -28,6 +28,10 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     const { id } = useParams();
 
+    useEffect(() => {
+        console.log(answers);
+    }, [answers]);
+
     const next = useCallback(() => {
         if (!id) return navigate("/test/welcome");
 
