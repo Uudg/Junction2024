@@ -34,10 +34,12 @@ export const MultipleChoiceQuestion = () => {
             {
                 currentQuestion && (
                     <div className="flex flex-col gap-2">
-                        {currentQuestion.question}
-                        <div className="flex flex-col gap-4">
+                        <h6 className="font-medium text-2xl test-question">
+                            {currentQuestion.question}
+                        </h6>
+                        <div className="flex flex-col gap-4 mt-2">
                             {options.map((option, i) => (
-                                <label key={i} className="flex gap-2 p-2 border">
+                                <label key={i} className="flex gap-2 p-2 border rounded-md border-slate-400 cursor-pointer">
                                     <input
                                         value={option.value}
                                         type="radio"

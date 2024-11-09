@@ -4,6 +4,7 @@ import {
     get_results_from_questions
 } from "../../api";
 import { useNavigate, useParams } from "react-router-dom";
+import { Sidebar } from "../../components/sidebar/Sidebar";
 
 const TestContext = createContext<any>(undefined);
 
@@ -102,7 +103,12 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
             next,
             handleSaveAnswer,
         }}>
-            {children}
+            <div className="gradient h-screen w-screen flex relative">
+                <Sidebar />
+                <div className="w-full pl-24">
+                    {children}
+                </div>
+            </div>
         </TestContext.Provider>
     );
 };

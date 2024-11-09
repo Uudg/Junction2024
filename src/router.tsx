@@ -13,11 +13,7 @@ const router = createBrowserRouter([
                 </TestProvider>,
         children: [
             {
-                path: "",
-                element: <App/>
-            },
-            {
-                path: "/test/",
+                path: "test",
                 element: <Test/>,
                 children: [
                     {

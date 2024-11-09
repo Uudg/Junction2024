@@ -92,7 +92,7 @@ export const CardWrapper: FC<ICard> = ({ children, style, onVote, index, ...prop
       onDrag={getTrajectory}
       onDragEnd={() => flyAway(500)}
       // whileTap={{ scale: 1.1 }}
-      className="absolute"
+      className="absolute md:static"
       {...props}
     >
       {children}
