@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 import Jobs from "./pages/Jobs";
 import App from "./App";
 import Test from "./pages/Test";
@@ -6,7 +6,7 @@ import MultipleChoiceQuestion from "./pages/Test/components/MultipleChoiceQuesti
 import TestProvider from "./pages/Test/TestProvider";
 import TestWelcomePage from "./pages/TestWelcome";
 
-const router = createBrowserRouter([
+const router: RouteObject[] = [
     {
         path: "/",
         element: <TestProvider>
@@ -34,6 +34,6 @@ const router = createBrowserRouter([
             }
         ]
     },
-])
+]
 
 export default router;

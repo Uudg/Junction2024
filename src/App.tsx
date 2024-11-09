@@ -1,6 +1,11 @@
 // import { JobCard } from "./components/jobCard/JobCard"
 // import { Stack } from "./components/jobCard/Stack"
 
+import { AnimatePresence } from "framer-motion";
+import { useLocation, useRoutes } from "react-router-dom";
+import router from "./router";
+import { cloneElement } from "react";
+
 // const mockJobs = [
 //   {
 //     logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png",
@@ -13,7 +18,16 @@
 // ]
 
 export default function App() {
+  const element = useRoutes(router);
+
+  const location = useLocation();
+
+  if (!element) return null;
+
   return (
+    <AnimatePresence mode="wait" initial={false}>
+      {cloneElement(element, { key: location.pathname })}
+    </AnimatePresence>
     // <div className="flex w-full h-[100vh] bg-red-500">
     //   <Stack onVote={(item: any, vote: any) => console.log(item.props, vote)}>
     //     {mockJobs.map(job => <JobCard {...job} />)}
@@ -28,8 +42,8 @@ export default function App() {
     //     </div>
     //   </Stack>
     // </div>
-    <div className="h-screen w-screen">
-        <div className="gradient h-full w-full fixed top-0 left-0"></div>
-    </div>
-  )
+    // <div className="h-screen w-screen">
+    //     {/* <div className="gradient h-full w-full fixed top-0 left-0"></div> */}
+    // </div>
+  );
 }
