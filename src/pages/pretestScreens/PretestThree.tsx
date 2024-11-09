@@ -10,6 +10,7 @@ export const PretestThree = () => {
       </h1>
 
       <h5 className="avenir_font text-xl mt-6">Select the benefits</h5>
+      {/* <Multiselect /> */}
       <Input className="w-full md:w-4/5 mt-2" placeholder="Preferred benefits" />
       <h5 className="avenir_font text-xl mt-8">Select the team size</h5>
       <Input className="w-full md:w-4/5 mt-2" placeholder="Team size" />

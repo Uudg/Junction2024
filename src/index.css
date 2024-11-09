@@ -24,6 +24,11 @@ body, #root {
   background-color: #F8F8F8;
 }
 
+input::placeholder {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
+
 .customColorBg {
   background: #F9F9F9;
 }
