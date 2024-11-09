@@ -48,14 +48,16 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [answers]);
 
-  const handleSaveAnswer = useCallback((question: string, value: number) => {
-    setAnswers([...answers, { [question]: value }]);
-    if (Number(id) < 10) {
-      navigate(`/test/four/${parseInt(id as string) + 1}`);
-    } else {
-
-    }
-  }, [answers, id])
+  const handleSaveAnswer = useCallback(
+    (question: string, value: number) => {
+      setAnswers([...answers, { [question]: value }]);
+      if (Number(id) < 10) {
+        navigate(`/test/four/${parseInt(id as string) + 1}`);
+      } else {
+      }
+    },
+    [answers, id]
+  );
 
   const formatAnswers = (answersArray: any[]) => {
     return answersArray.reduce((acc, answer) => {
@@ -96,11 +98,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       <div className="gradient h-screen w-screen flex relative">
-        {showSidebar ? (
-          <div className="hidden md:block relative shrink-0 w-24">
-            <Sidebar />
-          </div>
-        ) : null}
+        {showSidebar ? <Sidebar /> : null}
         <div className="w-full">{children}</div>
       </div>
     </TestContext.Provider>

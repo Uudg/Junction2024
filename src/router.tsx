@@ -9,50 +9,50 @@ import { TestFour } from "./pages/pretestScreens/TestFour";
 import TestLayout from "./pages/Test";
 
 const router: RouteObject[] = [
-    {
-        path: "/",
-        element: (
-            <TestProvider>
-                <Outlet />
-            </TestProvider>
-        ),
+  {
+    path: "/",
+    element: (
+      <TestProvider>
+        <Outlet />
+      </TestProvider>
+    ),
+    children: [
+      {
+        path: "",
+        element: <TestWelcomePage />,
+      },
+      {
+        path: "test",
+        element: <TestLayout />,
         children: [
-            {
-                path: "",
-                element: <TestWelcomePage />,
-            },
-            {
-                path: "test",
-                element: <TestLayout />,
-                children: [
-                    {
-                        path: "one",
-                        element: <PretestOne />,
-                    },
-                    {
-                        path: "two",
-                        element: <PretestTwo />,
-                    },
-                    {
-                        path: "three",
-                        element: <PretestThree />,
-                    },
-                    {
-                        path: "four/:id",
-                        element: <TestFour />,
-                    },
-                    // {
-                    //     path: ":id",
-                    //     element: <MultipleChoiceQuestion/>
-                    // }
-                ],
-            },
-            {
-                path: "/jobs",
-                element: <Jobs />,
-            },
+          {
+            path: "one",
+            element: <PretestOne />,
+          },
+          {
+            path: "two",
+            element: <PretestTwo />,
+          },
+          {
+            path: "three",
+            element: <PretestThree />,
+          },
+          {
+            path: "four/:id",
+            element: <TestFour />,
+          },
+          // {
+          //     path: ":id",
+          //     element: <MultipleChoiceQuestion/>
+          // }
         ],
-    },
+      },
+      {
+        path: "/jobs",
+        element: <Jobs />,
+      },
+    ],
+  },
 ];
 
 export default router;

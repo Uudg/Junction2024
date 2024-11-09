@@ -43,7 +43,7 @@ export const TestFour = () => {
       <h5 className="avenir_font text-xl mt-12 text-center w-full">
         "{foundQuestion.question}"
       </h5>
-      <div className="w-full flex flex-row gap-4 justify-center mt-4">
+      <div className="w-full flex md:flex-row gap-4 justify-center mt-4 flex-col">
         {options.map((option, i) => (
           <div
             key={i}

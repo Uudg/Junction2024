@@ -1,12 +1,12 @@
 import logo from "../../assets/logo.svg";
-import nameLogo from "../../assets/CoreMatch_horizontal.svg";
+import nameLogo from "../../assets/logoName.svg";
 import { Button } from "../../components/button/Button";
 import { Link } from "react-router-dom";
 
 const TestWelcomePage = () => {
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
-      <div className="flex flex-col">
+      <div className="flex flex-col px-8 md:px-0">
         <div className="flex flex-row gap-2 items-center">
           <img src={logo} alt="logo here" />
           <img src={nameLogo} alt="name logo here" />
