@@ -19,13 +19,13 @@ import { PrivacyScreen } from "./components/privacyScreen/PrivacyScreen";
 // ]
 
 export default function App() {
-  const element = useRoutes(router);
+    const element = useRoutes(router);
 
-  const location = useLocation();
+    const location = useLocation();
 
-  if (!element) return null;
+    if (!element) return null;
 
-  return (element
+    return element;
     // <AnimatePresence mode="wait" initial={false}>
     //   {cloneElement(element, { key: location.pathname })}
     //   <PrivacyScreen />
@@ -47,5 +47,4 @@ export default function App() {
     // <div className="h-screen w-screen">
     //     {/* <div className="gradient h-full w-full fixed top-0 left-0"></div> */}
     // </div>
-  );
 }
