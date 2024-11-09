@@ -19,17 +19,19 @@ import { PrivacyScreen } from "./components/privacyScreen/PrivacyScreen";
 // ]
 
 export default function App() {
-  const element = useRoutes(router);
+    const element = useRoutes(router);
 
-  const location = useLocation();
+    const location = useLocation();
 
-  if (!element) return null;
+    if (!element) return null;
 
-  return (
-    <AnimatePresence mode="wait" initial={false}>
-      {cloneElement(element, { key: location.pathname })}
-      <PrivacyScreen />
-    </AnimatePresence>
+    return element;
+
+    //   return (
+    //     <AnimatePresence mode="wait" initial={false}>
+    //       {cloneElement(element, { key: location.pathname })}
+    //       <PrivacyScreen />
+    //     </AnimatePresence>
     // <div className="flex w-full h-[100vh] bg-red-500">
     //   <Stack onVote={(item: any, vote: any) => console.log(item.props, vote)}>
     //     {mockJobs.map(job => <JobCard {...job} />)}
@@ -47,5 +49,5 @@ export default function App() {
     // <div className="h-screen w-screen">
     //     {/* <div className="gradient h-full w-full fixed top-0 left-0"></div> */}
     // </div>
-  );
+    //   );
 }

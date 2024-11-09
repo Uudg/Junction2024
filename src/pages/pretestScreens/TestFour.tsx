@@ -25,7 +25,7 @@ const options = [
 ];
 
 export const TestFour = () => {
-    const { currentQuestion, handleSaveAnswer, answers } = useTest();
+    const { currentQuestion, handleSaveAnswer } = useTest();
 
     if (!currentQuestion) return "No questions";
 

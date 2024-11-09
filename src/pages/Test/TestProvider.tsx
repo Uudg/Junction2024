@@ -68,8 +68,6 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
         const data = await get_results_from_questions({
             responses: formattedAnswers,
         });
-        console.log(data);
-        // handle the data as needed
     };
 
     useEffect(() => {
