@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get_jobs } from "../api/jobs";
+import { get_jobs } from "../api";
 
 const useJobs = () => {
 
