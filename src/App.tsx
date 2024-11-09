@@ -3,8 +3,9 @@
 
 import { AnimatePresence } from "framer-motion";
 import { useLocation, useRoutes } from "react-router-dom";
-import router from "./router";
 import { cloneElement } from "react";
+import router from "./router";
+import { PrivacyScreen } from "./components/privacyScreen/PrivacyScreen";
 
 // const mockJobs = [
 //   {
@@ -27,6 +28,7 @@ export default function App() {
   return (
     <AnimatePresence mode="wait" initial={false}>
       {cloneElement(element, { key: location.pathname })}
+      <PrivacyScreen />
     </AnimatePresence>
     // <div className="flex w-full h-[100vh] bg-red-500">
     //   <Stack onVote={(item: any, vote: any) => console.log(item.props, vote)}>
