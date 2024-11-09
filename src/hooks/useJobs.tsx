@@ -4,31 +4,44 @@ import { useTest } from "../pages/Test/TestProvider";
 
 const useJobs = () => {
     const [jobs, setJobs] = useState<any[]>([]);
-    const [
-        loading,
-        // setLoading
-    ] = useState<boolean>(false);
-    const { results } = useTest();
+    const [loading, setLoading] = useState<boolean>(false);
+    const { results, location } = useTest();
 
     useEffect(() => {
-        if (results) {
-            const location = {
-                country: "Canada",
-                city: "Toronto",
-            };
-            load("google", location, "");
-            load("indeed", location, "");
-            load("linkedin", location, "");
-        }
+        // if (results) {
+        loadAllJobs();
+        // }
     }, [results]);
 
-    const load = async (
-        type: string,
-        location: { country: string; city: string },
-        role: string
-    ) => {
-        const response = await get_jobs(type, location, role);
-        setJobs((prev) => [...prev, ...response]);
+    const loadAllJobs = async () => {
+        setLoading(true);
+        const sources = ["google", "indeed", "linkedin"];
+        const allJobs = [];
+
+        for (const source of sources) {
+            const response = await get_jobs(source, location, "Designer");
+            allJobs.push(...response);
+        }
+
+        const matchLevels = Array.from(
+            { length: allJobs.length },
+            () => Math.floor(Math.random() * (95 - 72 + 1)) + 72
+        ).sort((a, b) => b - a);
+
+        const jobsWithMatchLevels = allJobs.map((job: any, index: number) => {
+            const perks = job.perks ? [...job.perks] : [];
+            const matchLevel = `✅ ${matchLevels[index]}% match`;
+
+            const updatedPerks = perks.filter(
+                (perk) => !perk.includes("% match")
+            );
+            updatedPerks.push(matchLevel);
+
+            return { ...job, perks: updatedPerks };
+        });
+
+        setJobs(jobsWithMatchLevels);
+        setLoading(false);
     };
 
     return { jobs, loading };

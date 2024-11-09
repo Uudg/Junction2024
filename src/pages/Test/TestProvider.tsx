@@ -1,61 +1,57 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import {
-    get_questions,
-    get_results_from_questions
-} from "../../api";
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
+import { get_questions, get_results_from_questions } from "../../api";
 import { useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 
 const TestContext = createContext<any>(undefined);
 
 const TestProvider = ({ children }: { children: ReactNode }) => {
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
-
-    // vse voprosi (10)
     const [questions, setQuestions] = useState<any[]>([]);
 
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
-    const [
-        answers,
-        setAnswers
-    ] = useState<any>([]);
+    const [answers, setAnswers] = useState<any>([]);
+    const [location] = useState<{
+        country: string;
+        city: string;
+    }>({
+        country: "USA",
+        city: "NY",
+    });
 
-    // here is how it is made by @asado to send the answers
-    //     {
-    //      "responses": {
-    //          "Q1": 4,
-    //          "Q2": 5,
-    //          "Q3": 2,
-    //          ...
-    // }}
-    // 
+    const [results, setResults] = useState<any>(null);
 
     const { id } = useParams();
 
     const next = async () => {
-
-        if (!id) return navigate('/test/1')
+        if (!id) return navigate("/test/1");
 
         if (id && parseInt(id) < 10) {
             navigate(`/test/${parseInt(id) + 1}`);
         }
 
         if (id && parseInt(id) === 10) {
-            navigate('/jobs')
+            navigate("/jobs");
         }
-    }
+    };
 
     useEffect(() => {
         if (answers.length === 10) {
-            getQuestionsResult()
+            getQuestionsResult();
         }
-    }, [answers])
+    }, [answers]);
 
     const handleSaveAnswer = (question: any, value: number) => {
         setAnswers([...answers, { [question]: value }]);
         next();
-    }
+    };
 
     const formatAnswers = (answersArray: any[]) => {
         return answersArray.reduce((acc, answer) => {
@@ -67,10 +63,11 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     const getQuestionsResult = async () => {
         const formattedAnswers = formatAnswers(answers);
-        const data = await get_results_from_questions({ responses: formattedAnswers });
-        console.log(data);
-        // handle the data as needed
-    }
+        const data = await get_results_from_questions({
+            responses: formattedAnswers,
+        });
+        setResults(data);
+    };
 
     useEffect(() => {
         if (questions.length > 0 && id) {
@@ -80,10 +77,10 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     const load_questions = async () => {
         const data = await get_questions();
-        // asad nasral v response so need to convert the data
-        const questionsArray = Object.keys(data).map(key => ({
+
+        const questionsArray = Object.keys(data).map((key) => ({
             questionID: key,
-            question: data[key]
+            question: data[key],
         }));
         setQuestions(questionsArray);
     };
@@ -93,23 +90,25 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     useEffect(() => {
-        console.log(answers)
-    }, [answers])
+        console.log(answers);
+    }, [answers]);
 
     return (
-        <TestContext.Provider value={{
-            questions,
-            currentQuestion,
-            next,
-            handleSaveAnswer,
-        }}>
+        <TestContext.Provider
+            value={{
+                questions,
+                currentQuestion,
+                next,
+                handleSaveAnswer,
+                location,
+                results,
+            }}
+        >
             <div className="gradient h-screen w-screen flex relative">
                 <div className="hidden md:block relative shrink-0 w-24">
                     <Sidebar />
                 </div>
-                <div className="w-full">
-                    {children}
-                </div>
+                <div className="w-full">{children}</div>
             </div>
         </TestContext.Provider>
     );

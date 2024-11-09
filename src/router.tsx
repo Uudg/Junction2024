@@ -9,31 +9,33 @@ import TestWelcomePage from "./pages/TestWelcome";
 const router: RouteObject[] = [
     {
         path: "/",
-        element: <TestProvider>
-                    <Outlet/>
-                </TestProvider>,
+        element: (
+            <TestProvider>
+                <Outlet />
+            </TestProvider>
+        ),
         children: [
             {
                 path: "test",
-                element: <Test/>,
+                element: <Test />,
                 children: [
                     {
                         // first page where we define level or etc, not decided yet
                         path: "welcome",
-                        element: <TestWelcomePage />
+                        element: <TestWelcomePage />,
                     },
                     {
                         path: ":id",
-                        element: <MultipleChoiceQuestion/>
-                    }
-                ]
+                        element: <MultipleChoiceQuestion />,
+                    },
+                ],
             },
             {
                 path: "/jobs",
-                element: <Jobs/>
-            }
-        ]
+                element: <Jobs />,
+            },
+        ],
     },
-]
+];
 
 export default router;

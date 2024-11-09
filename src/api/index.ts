@@ -1,21 +1,7 @@
 import axios from "axios";
-// const url = import.meta.env.VITE_API_URL;
-const q_url = import.meta.env.VITE_QUESTIONS_API;
+import { findLevel } from "../utils/findLevel";
 
-// poka netu, will be after getup
-// export const get_jobs = async () => {
-//     try {
-//         const response = await axios.post(url + "/jobs", {
-//             // mock, location and for query there is overall field for ai generation, but won't be used in this way later
-//             location: "Helsinki",
-//             query: "Software Developement"
-//         });
-//         return response.data;
-//     } catch (error) {
-//         console.error(error);
-//         return [];
-//     }
-// }```
+const q_url = import.meta.env.VITE_QUESTIONS_API;
 
 export const get_jobs = async (
     type: string,
@@ -29,7 +15,27 @@ export const get_jobs = async (
             role,
             results_wanted: 5,
         });
-        return response.data;
+
+        const jobs = response.data.map((job: any) => {
+            const perks = [];
+            perks.push(
+                job.job_type && job.job_type,
+                job.is_remote ? "remote" : "on site"
+            );
+
+            const level = findLevel(job.description);
+            if (level !== "unknown") {
+                perks.push(level);
+            }
+
+            // Generate a random match level percentage between 72% and 95%
+            const matchLevel = Math.floor(Math.random() * (95 - 72 + 1)) + 72;
+            perks.push(`✅ ${matchLevel}% match`);
+
+            return { ...job, perks };
+        });
+
+        return jobs;
     } catch (err) {
         console.error(err);
         return [];
