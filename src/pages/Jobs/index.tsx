@@ -20,13 +20,13 @@ const Jobs = () => {
     //             <JobPreview key={index} job={el}/>
     //         ))
     //     }
-    <div className="grid grid-cols-1 md:grid-cols-5 gap-2 px-4 py-2">
+    <div className="grid grid-cols-1 xl:grid-cols-5 gap-2">
       {/* Filters */}
-      <div className="col-span-1 lg:col-span-3 xl:col-span-1 pt-4 hidden md:block">
+      <div className="col-span-1 xl:col-span-1 p-4">
         <JobFilter />
       </div>
       {/* List */}
-      <div className="col-span-2 flex flex-col gap-4 h-screen overflow-y-scroll pt-4">
+      <div className="col-span-1 xl:col-span-2 flex flex-col gap-4 h-screen overflow-y-scroll p-4">
         {/* <Stack onVote={(item: any, vote: any) => console.log(item.props, vote)}> */}
           {jobs &&
             jobs.map((el: any, index: number) => (
@@ -35,8 +35,8 @@ const Jobs = () => {
         {/* </Stack> */}
       </div>
       {/* Frame */}
-      <div className="col-span-2 pt-4 h-screen hidden md:flex">
-        <div className="bg-white border rounded-xl w-full h-full">
+        <div className="col-span-1 xl:col-span-2 p-4 px-2 h-screen hidden xl:block">
+            <div className="bg-white border rounded-xl w-full h-full">
           <ProxyView url="https://linkedin.com" />
         </div>
         {/* <div className="w-full h-96 bg-gray-200 rounded-xl"></div> */}
