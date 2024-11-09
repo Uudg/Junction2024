@@ -29,6 +29,10 @@ body, #root {
     background: radial-gradient(68.03% 162.8% at 68.03% 47.22%, #FFFFFF 0%, #E8E5FF 33.33%, #FFFFFF 66.67%, #F0EEFF 100%);
 }
 
+.avenir_font {
+  font-family: "Avenir", sans-serif !important;
+}
+
 .test-question {
   font-family: "Avenir", sans-serif !important;
 }
