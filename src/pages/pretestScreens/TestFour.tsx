@@ -1,4 +1,3 @@
-import { Option } from "../../components/option/Option";
 import { useTest } from "../Test/TestProvider";
 
 const options = [
@@ -25,9 +24,11 @@ const options = [
 ];
 
 export const TestFour = () => {
-    const { currentQuestion, handleSaveAnswer } = useTest();
+    const { id, questions, handleSaveAnswer } = useTest();
 
-    if (!currentQuestion) return "No questions";
+    const foundQuestion = questions[id - 1];
+
+    if (!foundQuestion) return "No questions";
 
     return (
         <div className="w-full h-screen flex flex-col items-start justify-center max-w-5xl">
@@ -40,32 +41,24 @@ export const TestFour = () => {
             </h5>
 
             <h5 className="avenir_font text-xl mt-12 text-center w-full">
-                "{currentQuestion.question}"
+                "{foundQuestion.question}"
             </h5>
             <div className="w-full flex flex-row gap-4 justify-center mt-4">
                 {options.map((option, i) => (
-                    <label
+                    <div
                         key={i}
                         className="avenir_font bg-white border border-slate-300 py-2 px-6 flex gap-2 items-center whitespace-nowrap cursor-pointer rounded-xl"
+                        onClick={() =>
+                            handleSaveAnswer(
+                                foundQuestion.questionID,
+                                option.value
+                            )
+                        }
                     >
-                        <input
-                            value={option.value}
-                            type="radio"
-                            hidden
-                            name={currentQuestion.questionID}
-                            onChange={(e) =>
-                                handleSaveAnswer(
-                                    currentQuestion.questionID,
-                                    parseInt(e.target.value)
-                                )
-                            }
-                        />
                         {option.title}
-                    </label>
+                    </div>
                 ))}
             </div>
-
-            {/* <Button className="mt-10 text-xl font-light">Next</Button> */}
         </div>
     );
 };

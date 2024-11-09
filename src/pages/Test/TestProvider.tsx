@@ -10,7 +10,11 @@ import { get_questions, get_results_from_questions } from "../../api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 
-type ResponseType = Record<string, number>[];
+type ResponseType = Record<string, number>;
+type QuestionType = {
+    questionID: string;
+    question: string;
+};
 
 const TestContext = createContext<any>(undefined);
 
@@ -24,45 +28,38 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     });
     const showSidebar = !location.pathname.split("/").includes("test");
 
-    // vse voprosi (10)
-    const [questions, setQuestions] = useState<any[]>([]);
+    const { id } = useParams();
 
-    const [currentQuestion, setCurrentQuestion] = useState<any>(null);
-    const [answers, setAnswers] = useState<ResponseType>([]);
+    // vse voprosi (10)
+    const [questions, setQuestions] = useState<QuestionType[]>([]);
+    const [answers, setAnswers] = useState<ResponseType[]>([]);
 
     const [results, setResults] = useState<any>(null);
 
-    const { id } = useParams();
+    //   if (id && parseInt(id) < 10) {
+    //     navigate(`/test/four/${parseInt(id) + 1}`);
+    //   }
+
+    //   if (id && parseInt(id) === 10) {
+    //     navigate("/jobs");
+    //   }
+    // }, [id]);
 
     useEffect(() => {
-        console.log(answers);
-    }, [answers]);
-
-    const next = useCallback(() => {
-        if (!id) return navigate("/test/welcome");
-
-        if (id && parseInt(id) < 10) {
-            navigate(`/test/four/${parseInt(id) + 1}`);
-        }
-
-        if (id && parseInt(id) === 10) {
-            navigate("/jobs");
-        }
-    }, [id]);
-
-    useEffect(() => {
-        // if (answers.length === 10) {
-        if (location.pathname.split("/").includes("jobs")) {
+        if (answers.length === 10) {
             getQuestionsResult();
         }
     }, [answers]);
 
     const handleSaveAnswer = useCallback(
-        (question: any, value: number) => {
+        (question: string, value: number) => {
             setAnswers([...answers, { [question]: value }]);
-            next();
+            if (Number(id) < 10) {
+                navigate(`/test/four/${parseInt(id as string) + 1}`);
+            } else {
+            }
         },
-        [answers]
+        [answers, id]
     );
 
     const formatAnswers = (answersArray: any[]) => {
@@ -78,14 +75,8 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
         const data = await get_results_from_questions({
             responses: formattedAnswers,
         });
-        setResults(data);
+        console.log(data);
     };
-
-    useEffect(() => {
-        if (questions.length > 0 && id) {
-            setCurrentQuestion(questions[parseInt(id) - 1]);
-        }
-    }, [questions, id]);
 
     const load_questions = async () => {
         const data = await get_questions();
@@ -101,19 +92,12 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
         load_questions();
     }, []);
 
-    useEffect(() => {
-        console.log(answers);
-    }, [answers]);
-
     return (
         <TestContext.Provider
             value={{
                 questions,
-                currentQuestion,
-                next,
+                id,
                 handleSaveAnswer,
-                results,
-                location: userLocation,
             }}
         >
             <div className="gradient h-screen w-screen flex relative">
