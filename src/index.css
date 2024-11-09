@@ -24,6 +24,10 @@ body, #root {
   background-color: #F8F8F8;
 }
 
+.customColorBg {
+  background: #F9F9F9;
+}
+
 .gradient {
     background: radial-gradient(68.03% 162.8% at 68.03% 47.22%, #FFFFFF 0%, #E8E5FF 33.33%, #FFFFFF 66.67%, #F0EEFF 100%);
 }

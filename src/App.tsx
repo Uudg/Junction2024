@@ -25,11 +25,11 @@ export default function App() {
 
   if (!element) return null;
 
-  return (
-    <AnimatePresence mode="wait" initial={false}>
-      {cloneElement(element, { key: location.pathname })}
-      <PrivacyScreen />
-    </AnimatePresence>
+  return (element
+    // <AnimatePresence mode="wait" initial={false}>
+    //   {cloneElement(element, { key: location.pathname })}
+    //   <PrivacyScreen />
+    // </AnimatePresence>
     // <div className="flex w-full h-[100vh] bg-red-500">
     //   <Stack onVote={(item: any, vote: any) => console.log(item.props, vote)}>
     //     {mockJobs.map(job => <JobCard {...job} />)}
