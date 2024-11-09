@@ -18,6 +18,10 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const [userLocation, setUserLocation] = useState<any>({
+        contry: "USA",
+        city: "NY",
+    });
     const showSidebar = !location.pathname.split("/").includes("test");
 
     // vse voprosi (10)
@@ -25,6 +29,8 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
     const [answers, setAnswers] = useState<ResponseType>([]);
+
+    const [results, setResults] = useState<any>(null);
 
     const { id } = useParams();
 
@@ -45,15 +51,19 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     }, [id]);
 
     useEffect(() => {
-        if (answers.length === 10) {
+        // if (answers.length === 10) {
+        if (location.pathname.split("/").includes("jobs")) {
             getQuestionsResult();
         }
     }, [answers]);
 
-    const handleSaveAnswer = useCallback((question: any, value: number) => {
-        setAnswers([...answers, { [question]: value }]);
-        next();
-    }, [answers]);
+    const handleSaveAnswer = useCallback(
+        (question: any, value: number) => {
+            setAnswers([...answers, { [question]: value }]);
+            next();
+        },
+        [answers]
+    );
 
     const formatAnswers = (answersArray: any[]) => {
         return answersArray.reduce((acc, answer) => {
@@ -68,6 +78,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
         const data = await get_results_from_questions({
             responses: formattedAnswers,
         });
+        setResults(data);
     };
 
     useEffect(() => {
@@ -101,6 +112,8 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
                 currentQuestion,
                 next,
                 handleSaveAnswer,
+                results,
+                location: userLocation,
             }}
         >
             <div className="gradient h-screen w-screen flex relative">

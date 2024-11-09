@@ -43,11 +43,6 @@ export const TestFour = () => {
                 "{currentQuestion.question}"
             </h5>
             <div className="w-full flex flex-row gap-4 justify-center mt-4">
-                {/* <Option>⛔ Strongly disagree</Option>
-                <Option>🙅‍♂️ Disagree</Option>
-                <Option>😐 Neutral</Option>
-                <Option>👍 Agree</Option>
-                <Option>✅ Strongly agree</Option> */}
                 {options.map((option, i) => (
                     <label
                         key={i}

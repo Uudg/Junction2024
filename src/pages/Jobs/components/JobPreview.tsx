@@ -3,21 +3,7 @@ import { fDate } from "../../../utils/formatDate";
 import { capitalize } from "../../../utils/capitalize";
 import { useTest } from "../../Test/TestProvider";
 
-const getRandomSoftColor = () => {
-    const colors = [
-        "bg-red-100",
-        "bg-yellow-100",
-        "bg-green-100",
-        "bg-blue-100",
-        "bg-indigo-100",
-        "bg-purple-100",
-        "bg-pink-100",
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-};
-
-const JobPreview = ({ job }: any) => {
-    const bgColor = getRandomSoftColor();
+const JobPreview = ({ job, select, bgColor }: any) => {
     const { location } = useTest();
 
     return (
@@ -78,7 +64,10 @@ const JobPreview = ({ job }: any) => {
                             {location.country} - {location.city}
                         </div>
                     </div>
-                    <button className="rounded-xl px-4 py-2 bg-black text-white text-sm h-fit">
+                    <button
+                        className="rounded-xl px-4 py-2 bg-black text-white text-sm h-fit"
+                        onClick={() => select(job)}
+                    >
                         Details
                     </button>
                 </div>

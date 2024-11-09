@@ -19,7 +19,20 @@ const Loader = () => {
 };
 
 const Jobs = () => {
-    const { jobs, loading } = useJobs();
+    const { jobs, loading, chosenJob, setChosenJob } = useJobs();
+
+    const getRandomSoftColor = () => {
+        const colors = [
+            "bg-red-100",
+            "bg-yellow-100",
+            "bg-green-100",
+            "bg-blue-100",
+            "bg-indigo-100",
+            "bg-purple-100",
+            "bg-pink-100",
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+    };
 
     return (
         <div className="grid grid-cols-1 xl:grid-cols-5 gap-2">
@@ -36,15 +49,18 @@ const Jobs = () => {
                 )}
                 {jobs &&
                     jobs.map((el: any, index: number) => (
-                        <JobPreview key={index} job={el} />
+                        <JobPreview
+                            key={index}
+                            job={el}
+                            select={setChosenJob}
+                            bgColor={getRandomSoftColor()}
+                        />
                     ))}
             </div>
             {/* Frame */}
             <div className="col-span-1 xl:col-span-2 p-4 px-2 h-screen xl:block">
                 <div className="bg-white border rounded-xl w-full h-full p-4 flex flex-col gap-2">
-                    {jobs.length > 0 && (
-                        <ProxyView url={jobs && jobs[0].job_url} />
-                    )}
+                    {chosenJob && <ProxyView url={chosenJob.job_url} />}
                 </div>
             </div>
         </div>
