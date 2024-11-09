@@ -1,124 +1,114 @@
 import {
-    createContext,
-    ReactNode,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
 import { get_questions, get_results_from_questions } from "../../api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 
-type ResponseType = Record<string, number>[];
+type ResponseType = Record<string, number>;
+type QuestionType = {
+  questionID: string;
+  question: string;
+};
 
 const TestContext = createContext<any>(undefined);
 
 const TestProvider = ({ children }: { children: ReactNode }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const showSidebar = !location.pathname.split("/").includes("test");
+  const showSidebar = !location.pathname.split("/").includes("test");
 
-    // vse voprosi (10)
-    const [questions, setQuestions] = useState<any[]>([]);
+  const { id } = useParams();
 
-    const [currentQuestion, setCurrentQuestion] = useState<any>(null);
-    const [answers, setAnswers] = useState<ResponseType>([]);
+  // vse voprosi (10)
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
+  const [answers, setAnswers] = useState<ResponseType[]>([]);
 
-    const { id } = useParams();
+  // const next = useCallback(() => {
+  //   if (!id) return navigate("/test/welcome");
 
-    useEffect(() => {
-        console.log(answers);
-    }, [answers]);
+  //   if (id && parseInt(id) < 10) {
+  //     navigate(`/test/four/${parseInt(id) + 1}`);
+  //   }
 
-    const next = useCallback(() => {
-        if (!id) return navigate("/test/welcome");
+  //   if (id && parseInt(id) === 10) {
+  //     navigate("/jobs");
+  //   }
+  // }, [id]);
 
-        if (id && parseInt(id) < 10) {
-            navigate(`/test/four/${parseInt(id) + 1}`);
-        }
+  useEffect(() => {
+    if (answers.length === 10) {
+      getQuestionsResult();
+    }
+  }, [answers]);
 
-        if (id && parseInt(id) === 10) {
-            navigate("/jobs");
-        }
-    }, [id]);
+  const handleSaveAnswer = useCallback((question: string, value: number) => {
+    setAnswers([...answers, { [question]: value }]);
+    if (Number(id) < 10) {
+      navigate(`/test/four/${parseInt(id as string) + 1}`);
+    } else {
 
-    useEffect(() => {
-        if (answers.length === 10) {
-            getQuestionsResult();
-        }
-    }, [answers]);
+    }
+  }, [answers, id])
 
-    const handleSaveAnswer = useCallback((question: any, value: number) => {
-        setAnswers([...answers, { [question]: value }]);
-        next();
-    }, [answers]);
+  const formatAnswers = (answersArray: any[]) => {
+    return answersArray.reduce((acc, answer) => {
+      const key = Object.keys(answer)[0];
+      acc[key] = answer[key];
+      return acc;
+    }, {});
+  };
 
-    const formatAnswers = (answersArray: any[]) => {
-        return answersArray.reduce((acc, answer) => {
-            const key = Object.keys(answer)[0];
-            acc[key] = answer[key];
-            return acc;
-        }, {});
-    };
+  const getQuestionsResult = async () => {
+    const formattedAnswers = formatAnswers(answers);
+    const data = await get_results_from_questions({
+      responses: formattedAnswers,
+    });
+    console.log(data);
+  };
 
-    const getQuestionsResult = async () => {
-        const formattedAnswers = formatAnswers(answers);
-        const data = await get_results_from_questions({
-            responses: formattedAnswers,
-        });
-        console.log(data);
-        // handle the data as needed
-    };
+  const load_questions = async () => {
+    const data = await get_questions();
+    // asad nasral v response so need to convert the data
+    const questionsArray = Object.keys(data).map((key) => ({
+      questionID: key,
+      question: data[key],
+    }));
+    setQuestions(questionsArray);
+  };
 
-    useEffect(() => {
-        if (questions.length > 0 && id) {
-            setCurrentQuestion(questions[parseInt(id) - 1]);
-        }
-    }, [questions, id]);
+  useEffect(() => {
+    load_questions();
+  }, []);
 
-    const load_questions = async () => {
-        const data = await get_questions();
-        // asad nasral v response so need to convert the data
-        const questionsArray = Object.keys(data).map((key) => ({
-            questionID: key,
-            question: data[key],
-        }));
-        setQuestions(questionsArray);
-    };
-
-    useEffect(() => {
-        load_questions();
-    }, []);
-
-    useEffect(() => {
-        console.log(answers);
-    }, [answers]);
-
-    return (
-        <TestContext.Provider
-            value={{
-                questions,
-                currentQuestion,
-                next,
-                handleSaveAnswer,
-            }}
-        >
-            <div className="gradient h-screen w-screen flex relative">
-                {showSidebar ? (
-                    <div className="hidden md:block relative shrink-0 w-24">
-                        <Sidebar />
-                    </div>
-                ) : null}
-                <div className="w-full">{children}</div>
-            </div>
-        </TestContext.Provider>
-    );
+  return (
+    <TestContext.Provider
+      value={{
+        questions,
+        id,
+        handleSaveAnswer,
+      }}
+    >
+      <div className="gradient h-screen w-screen flex relative">
+        {showSidebar ? (
+          <div className="hidden md:block relative shrink-0 w-24">
+            <Sidebar />
+          </div>
+        ) : null}
+        <div className="w-full">{children}</div>
+      </div>
+    </TestContext.Provider>
+  );
 };
 
 export default TestProvider;
 
 export const useTest = () => {
-    return useContext(TestContext);
+  return useContext(TestContext);
 };
