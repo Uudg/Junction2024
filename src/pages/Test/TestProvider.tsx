@@ -104,8 +104,10 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
             handleSaveAnswer,
         }}>
             <div className="gradient h-screen w-screen flex relative">
-                <Sidebar />
-                <div className="w-full pl-24">
+                <div className="hidden md:block relative shrink-0 w-24">
+                    <Sidebar />
+                </div>
+                <div className="w-full">
                     {children}
                 </div>
             </div>
