@@ -21,10 +21,10 @@ const TestLayout = () => {
 
   return (
     <div className="my-auto flex items-center justify-center h-screen gap-2 relative">
-      <div className="container pr-[30rem] mx-auto w-3/4 pt-20">
+      <div className="container pr-[30rem] mx-auto w-3/4 pt-20 customColorBg">
         <Outlet />
       </div>
-      <aside className="absolute right-0 top-0 w-[30rem] h-screen bg-white flex items-center justify-center">
+      <aside className="absolute right-0 top-0 w-[30rem] h-screen bg-white flex items-center justify-center border-l border-gray-300">
         <div className="h-full flex items-center justify-center p-2">
           <img src={steppers[currentPath]} alt="Stepper" />
         </div>

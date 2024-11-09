@@ -53,7 +53,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     const handleSaveAnswer = useCallback((question: any, value: number) => {
         setAnswers([...answers, { [question]: value }]);
         next();
-    }, []);
+    }, [answers]);
 
     const formatAnswers = (answersArray: any[]) => {
         return answersArray.reduce((acc, answer) => {
