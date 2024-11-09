@@ -1,8 +1,6 @@
 // import { JobCard } from "./components/jobCard/JobCard"
 // import { Stack } from "./components/jobCard/Stack"
 
-import TestProvider from "./pages/Test/TestProvider";
-
 // const mockJobs = [
 //   {
 //     logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png",
@@ -30,10 +28,8 @@ export default function App() {
     //     </div>
     //   </Stack>
     // </div>
-    <TestProvider>
-        <div className="h-screen w-screen">
-            <div className="gradient h-full w-full fixed top-0 left-0"></div>
-        </div>
-    </TestProvider>
+    <div className="h-screen w-screen">
+        <div className="gradient h-full w-full fixed top-0 left-0"></div>
+    </div>
   )
 }

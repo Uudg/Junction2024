@@ -1,5 +1,8 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { get_questions, get_results_from_questions } from "../../api";
+import {
+    get_questions,
+    // get_results_from_questions
+} from "../../api";
 import { useNavigate, useParams } from "react-router-dom";
 
 const TestContext = createContext<any>(undefined);
@@ -12,7 +15,10 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     const [questions, setQuestions] = useState<any[]>([]);
 
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
-    const [answers, setAnswers] = useState<any>([]);
+    const [
+        // answers,
+        // setAnswers
+    ] = useState<any>([]);
 
     // here is how it is made by @asado to send the answers
     //     {
@@ -41,9 +47,9 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     // to get answers from the multiple choice questions
     // ya hz gde our swipe questions so far, use mock for them to render and operate 
-    const getQuestionsResult = async () => {
-        const data = await get_results_from_questions(answers)
-    }
+    // const getQuestionsResult = async () => {
+    //     const data = await get_results_from_questions(answers)
+    // }
 
     useEffect(() => {
         console.log(id)

@@ -2,9 +2,11 @@ import axios from "axios";
 const url = import.meta.env.VITE_API_URL;
 const q_url = import.meta.env.VITE_QUESTIONS_API;
 
+// poka netu, will be after getup
 export const get_jobs = async () => {
     try {
         const response = await axios.post(url + "/jobs", {
+            // mock, location and for query there is overall field for ai generation, but won't be used in this way later
             location: "Helsinki",
             query: "Software Developement"
         });
