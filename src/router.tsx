@@ -1,6 +1,5 @@
 import { Outlet, RouteObject } from "react-router-dom";
 import Jobs from "./pages/Jobs";
-import MultipleChoiceQuestion from "./pages/Test/components/MultipleChoiceQuestion";
 import TestProvider from "./pages/Test/TestProvider";
 import TestWelcomePage from "./pages/TestWelcome";
 import PretestOne from "./pages/pretestScreens/PretestOne";
@@ -19,35 +18,34 @@ const router: RouteObject[] = [
         ),
         children: [
             {
+                path: "",
+                element: <TestWelcomePage />,
+            },
+            {
                 path: "test",
-                element: <TestLayout/>,
+                element: <TestLayout />,
                 children: [
                     {
-                        // first page where we define level or etc, not decided yet
-                        path: "welcome",
-                        element: <TestWelcomePage />,
-                    },
-                    {
                         path: "one",
-                        element: <PretestOne />
+                        element: <PretestOne />,
                     },
                     {
                         path: "two",
-                        element: <PretestTwo />
+                        element: <PretestTwo />,
                     },
                     {
                         path: "three",
-                        element: <PretestThree />
+                        element: <PretestThree />,
                     },
                     {
                         path: "four/:id",
-                        element: <TestFour />
+                        element: <TestFour />,
                     },
                     // {
                     //     path: ":id",
                     //     element: <MultipleChoiceQuestion/>
                     // }
-                ]
+                ],
             },
             {
                 path: "/jobs",
