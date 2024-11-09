@@ -16,7 +16,7 @@ const JobPreview = ({ job }: any) => {
     }, []);
 
     return (
-        <div className="gap-2 col-span-1 flex flex-col bg-white p-2 border border-gray-300 rounded-xl">
+        <div className="gap-2 flex flex-col bg-white p-2 border border-gray-300 rounded-xl">
             <div className={`flex flex-col ${bgColor} rounded-xl p-4 gap-8`}>
                 <div className="flex justify-between">
                     <div className="bg-white p-2 px-3 text-sm flex items-center rounded-full">
@@ -38,7 +38,7 @@ const JobPreview = ({ job }: any) => {
                 {job.perks && <div className="flex gap-2 mb-8 flex-wrap w-full">
                     {
                         job.perks.map((el: any, index: number) => (
-                            <div key={index} className="rounded-full px-4 text-sm font-light border border-gray-400 py-1">
+                            <div key={index} className="rounded-full px-4 text-xs font-light border border-gray-400 py-1">
                                 {el}
                             </div>
                         ))

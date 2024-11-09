@@ -27,9 +27,9 @@ export const get_questions = async () => {
     }
 }
 
-export const get_results_from_questions = async ({data} : any) => {
+export const get_results_from_questions = async ({responses} : any) => {
     try {
-        const response = await axios.post(`${q_url}/assess`, data);
+        const response = await axios.post(`${q_url}/assess`, {responses});
         return response.data;
     } catch (error) {
         console.error(error);

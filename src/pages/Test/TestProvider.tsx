@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import {
     get_questions,
-    // get_results_from_questions
+    get_results_from_questions
 } from "../../api";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -16,8 +16,8 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
     const [
-        // answers,
-        // setAnswers
+        answers,
+        setAnswers
     ] = useState<any>([]);
 
     // here is how it is made by @asado to send the answers
@@ -32,7 +32,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     const { id } = useParams();
 
-    const next = () => {
+    const next = async () => {
 
         if (!id) return navigate('/test/1')
 
@@ -45,14 +45,33 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
         }
     }
 
-    // to get answers from the multiple choice questions
-    // ya hz gde our swipe questions so far, use mock for them to render and operate 
-    // const getQuestionsResult = async () => {
-    //     const data = await get_results_from_questions(answers)
-    // }
+    useEffect(() => {
+        if (answers.length === 10) {
+            getQuestionsResult()
+        }
+    }, [answers])
+
+    const handleSaveAnswer = (question: any, value: number) => {
+        setAnswers([...answers, { [question]: value }]);
+        next();
+    }
+
+    const formatAnswers = (answersArray: any[]) => {
+        return answersArray.reduce((acc, answer) => {
+            const key = Object.keys(answer)[0];
+            acc[key] = answer[key];
+            return acc;
+        }, {});
+    };
+
+    const getQuestionsResult = async () => {
+        const formattedAnswers = formatAnswers(answers);
+        const data = await get_results_from_questions({ responses: formattedAnswers });
+        console.log(data);
+        // handle the data as needed
+    }
 
     useEffect(() => {
-        console.log(id)
         if (questions.length > 0 && id) {
             setCurrentQuestion(questions[parseInt(id) - 1]);
         }
@@ -61,9 +80,6 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     const load_questions = async () => {
         const data = await get_questions();
         // asad nasral v response so need to convert the data
-        // also net answerov so he needs to update them
-        // afterwards add options to questionsArray to return in 
-        // multiple choice questions
         const questionsArray = Object.keys(data).map(key => ({
             questionID: key,
             question: data[key]
@@ -75,11 +91,16 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
         load_questions();
     }, []);
 
+    useEffect(() => {
+        console.log(answers)
+    }, [answers])
+
     return (
         <TestContext.Provider value={{
             questions,
             currentQuestion,
-            next
+            next,
+            handleSaveAnswer,
         }}>
             {children}
         </TestContext.Provider>

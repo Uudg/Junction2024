@@ -1,28 +1,33 @@
 import { useTest } from "../TestProvider";
 
-// mock because asad
-const mock_options = [
+const options = [
     {
-        option: "Option 1",
-        value: false
+        title: "Strongly Disagree",
+        value: 1
     },
     {
-        option: "Option 2",
-        value: true
+        title: "Disagree",
+        value: 2
     },
     {
-        option: "Option 3",
-        value: false
+        title: "Neutral",
+        value: 3
     },
     {
-        option: "Option 4",
-        value: false
+        title: "Agree",
+        value: 4
+    },
+    {
+        title: "Strongly Agree",
+        value: 5
     }
 ]
 
 export const MultipleChoiceQuestion = () => {
+    const { currentQuestion, handleSaveAnswer, answers } = useTest();
 
-    const {currentQuestion} = useTest();
+    // Find the answer for the current question
+    const currentAnswer = answers && answers.find((answer: any) => answer[currentQuestion?.questionID]);
 
     return (
         <div className="h-screen w-screen flex items-center justify-center text-center">
@@ -31,10 +36,17 @@ export const MultipleChoiceQuestion = () => {
                     <div className="flex flex-col gap-2">
                         {currentQuestion.question}
                         <div className="flex flex-col gap-4">
-                            {mock_options.map(option => (
-                                <div key={option.option} className="p-2 border">
-                                    {option.option}
-                                </div>
+                            {options.map((option, i) => (
+                                <label key={i} className="flex gap-2 p-2 border">
+                                    <input
+                                        value={option.value}
+                                        type="radio"
+                                        name={currentQuestion.questionID}
+                                        checked={currentAnswer ? currentAnswer[currentQuestion.questionID] === option.value : false}
+                                        onChange={(e) => handleSaveAnswer(currentQuestion.questionID, parseInt(e.target.value))}
+                                    />
+                                    {option.title}
+                                </label>
                             ))}
                         </div>
                     </div>
