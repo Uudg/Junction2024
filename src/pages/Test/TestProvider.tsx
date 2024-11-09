@@ -1,6 +1,7 @@
 import {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -8,6 +9,8 @@ import {
 import { get_questions, get_results_from_questions } from "../../api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../../components/sidebar/Sidebar";
+
+type ResponseType = Record<string, number>
 
 const TestContext = createContext<any>(undefined);
 
@@ -35,17 +38,17 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
   const { id } = useParams();
 
-  const next = async () => {
-    if (!id) return navigate("/test/1");
+  const next = useCallback(() => {
+    if (!id) return navigate("/test/welcome");
 
     if (id && parseInt(id) < 10) {
-      navigate(`/test/${parseInt(id) + 1}`);
+      navigate(`/test/four/${parseInt(id) + 1}`);
     }
 
     if (id && parseInt(id) === 10) {
       navigate("/jobs");
     }
-  };
+  }, [id])
 
   useEffect(() => {
     if (answers.length === 10) {
@@ -53,10 +56,10 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [answers]);
 
-  const handleSaveAnswer = (question: any, value: number) => {
+  const handleSaveAnswer = useCallback((question: any, value: number) => {
     setAnswers([...answers, { [question]: value }]);
     next();
-  };
+  }, [])
 
   const formatAnswers = (answersArray: any[]) => {
     return answersArray.reduce((acc, answer) => {
