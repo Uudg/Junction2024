@@ -22,7 +22,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [userLocation, setUserLocation] = useState<any>({
+    const [userLocation] = useState<any>({
         contry: "USA",
         city: "NY",
     });
@@ -36,17 +36,8 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
 
     const [results, setResults] = useState<any>(null);
 
-    //   if (id && parseInt(id) < 10) {
-    //     navigate(`/test/four/${parseInt(id) + 1}`);
-    //   }
-
-    //   if (id && parseInt(id) === 10) {
-    //     navigate("/jobs");
-    //   }
-    // }, [id]);
-
     useEffect(() => {
-        if (answers.length === 10) {
+        if (location.pathname.split("/").includes("jobs")) {
             getQuestionsResult();
         }
     }, [answers]);
@@ -57,6 +48,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
             if (Number(id) < 10) {
                 navigate(`/test/four/${parseInt(id as string) + 1}`);
             } else {
+                navigate("/jobs");
             }
         },
         [answers, id]
@@ -75,7 +67,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
         const data = await get_results_from_questions({
             responses: formattedAnswers,
         });
-        console.log(data);
+        setResults(data);
     };
 
     const load_questions = async () => {
@@ -98,6 +90,8 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
                 questions,
                 id,
                 handleSaveAnswer,
+                location: userLocation,
+                results,
             }}
         >
             <div className="gradient h-screen w-screen flex relative">
