@@ -1,5 +1,5 @@
 import { Info } from 'lucide-react'
-import nameLogo from './CoreMatch.png'
+import nameLogo from '../../assets/CoreMatch_vertical.png'
 
 export const Sidebar = () => {
     return (

@@ -4,6 +4,7 @@ import App from "./App";
 import Test from "./pages/Test";
 import MultipleChoiceQuestion from "./pages/Test/components/MultipleChoiceQuestion";
 import TestProvider from "./pages/Test/TestProvider";
+import TestWelcomePage from "./pages/TestWelcome";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
                     {
                         // first page where we define level or etc, not decided yet
                         path: "welcome",
+                        element: <TestWelcomePage />
                     },
                     {
                         path: ":id",
