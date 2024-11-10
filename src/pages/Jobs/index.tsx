@@ -1,4 +1,4 @@
-import { JobFilter } from "../../components/jobFilter/JobFilter";
+// import { JobFilter } from "../../components/jobFilter/JobFilter";
 import useJobs from "../../hooks/useJobs";
 import ProxyView from "../../Proxy";
 import JobPreview from "./components/JobPreview";

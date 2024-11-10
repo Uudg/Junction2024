@@ -7,15 +7,18 @@ import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
 
 const PretestOne = () => {
-  const [myFiles, setMyFiles] = useState<any>(null)
+  const [myFiles, setMyFiles] = useState<any>(null);
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    setMyFiles(acceptedFiles)
-  }, [myFiles])
+  const onDrop = useCallback(
+    (acceptedFiles: any) => {
+      setMyFiles(acceptedFiles);
+    },
+    [myFiles]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const selectedFile = myFiles? myFiles[0] as File : null
+  const selectedFile = myFiles ? (myFiles[0] as File) : null;
 
   return (
     <motion.div
@@ -77,9 +80,9 @@ const PretestOne = () => {
         <Option>Internship</Option>
       </div>
 
-      <Button className="mt-10 text-xl font-light">
-        <Link to="/test/two">Next</Link>
-      </Button>
+      <Link to="/test/two">
+        <Button className="mt-10 text-xl font-light">Next</Button>
+      </Link>
     </motion.div>
   );
 };

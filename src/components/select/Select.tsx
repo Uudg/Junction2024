@@ -1,6 +1,7 @@
-import "./select.css";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { FC, MouseEvent, useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
+import { cn } from "../../utils/cn";
+import "./select.css";
 
 const itemVariants: Variants = {
   open: {
@@ -32,48 +33,59 @@ const listVariants: Variants = {
   },
 };
 
-export const Select = () => {
+interface ISelect {
+  className?: string;
+  options: { label: string; value: string }[];
+  value?: string;
+  onChange?: (value: string) => void;
+  placeholderText?: string;
+}
+
+export const Select: FC<ISelect> = ({
+  className,
+  options,
+  value,
+  placeholderText = "Select...",
+  onChange,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState("");
-  const listRef = useRef<HTMLUListElement>(null)
+  const listRef = useRef<HTMLUListElement>(null);
 
   const handleChange = (e: MouseEvent) => {
     const target = e.target as HTMLOptionElement;
-    console.log(target.value);
-    setValue(target.value);
-    setIsOpen(false)
-  }
+    onChange && onChange(target.value);
+    setIsOpen(false);
+  };
 
   const checkClickArea = (e: any) => {
-    if (!isOpen) return
+    if (!isOpen) return;
     if (listRef.current && !listRef.current.contains(e.target)) {
       setIsOpen(false);
     }
-  }
+  };
 
   useEffect(() => {
-    if (!listRef.current) return
+    if (!listRef.current) return;
 
-    document.addEventListener('click', checkClickArea)
+    document.addEventListener("click", checkClickArea);
 
     return () => {
-      document.removeEventListener('click', checkClickArea)
-    }
-
-  }, [listRef])
+      document.removeEventListener("click", checkClickArea);
+    };
+  }, [listRef]);
 
   return (
     <motion.nav
       initial={false}
       animate={isOpen ? "open" : "closed"}
-      className="relative w-full"
+      className={cn("relative w-full", className)}
     >
       <motion.button
-        whileTap={{ scale: 0.9 }}
+        whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between w-4/5 bg-white items-center rounded-xl box-border p-3 border focus:border-purple-400 hover:outline focus:outline focus:border-1 outline-purple-300"
+        className="flex justify-between w-4/5 bg-white items-center rounded-xl box-border p-3 border avenir_font text-gray-500 focus:border-purple-400 hover:outline focus:outline focus:border-1 outline-purple-300"
       >
-        {value || "Team size"}
+        {value || placeholderText}
         <motion.div
           variants={{
             open: { rotate: 180 },
@@ -90,14 +102,20 @@ export const Select = () => {
       <motion.ul
         variants={listVariants}
         style={{ pointerEvents: isOpen ? "auto" : "none" }}
-        className="absolute top-auto left-0 w-4/5 bg-white mt-2 border rounded-xl motionSelectList"
-      ref={listRef}
+        className="absolute top-auto left-0 w-4/5 bg-white mt-2 border rounded-xl motionSelectList z-50 shadow-md"
+        ref={listRef}
       >
-        <motion.option value="1" onClick={handleChange} variants={itemVariants} className="py-2 px-4 hover:bg-gray-300">Item 1 </motion.option>
-        <motion.option value="2" onClick={handleChange} variants={itemVariants} className="py-2 px-4 hover:bg-gray-300">Item 2 </motion.option>
-        <motion.option value="3" onClick={handleChange} variants={itemVariants} className="py-2 px-4 hover:bg-gray-300">Item 3 </motion.option>
-        <motion.option value="4" onClick={handleChange} variants={itemVariants} className="py-2 px-4 hover:bg-gray-300">Item 4 </motion.option>
-        <motion.option value="5" onClick={handleChange} variants={itemVariants} className="py-2 px-4 hover:bg-gray-300">Item 5 </motion.option>
+        {options.map((opt) => (
+          <motion.option
+            key={opt.value}
+            value={opt.value}
+            onClick={handleChange}
+            variants={itemVariants}
+            className="py-2 px-4 hover:bg-gray-300 avenir_font"
+          >
+            {opt.label}
+          </motion.option>
+        ))}
       </motion.ul>
     </motion.nav>
   );

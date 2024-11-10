@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { cn } from "../utils/cn";
 
-const STROKE_TIME = 4;
-const FILL_DELAY = 4.2;
+const STROKE_TIME = 2;
+const FILL_DELAY = 2.2;
 
 const icon2 = {
   hidden: {
@@ -22,7 +22,7 @@ export const AnimatedNameLogo = () => {
   const [startOpacity, setStartOpacity] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setStartOpacity(true), STROKE_TIME * 1000 + 700);
+    setTimeout(() => setStartOpacity(true), STROKE_TIME * 1000 + 500);
   }, []);
 
   return (
