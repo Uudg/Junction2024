@@ -17,9 +17,9 @@ export const PretestTwo = () => {
       </h5>
       <Input className="w-full md:w-4/5 mt-2" placeholder="Find the location" />
 
-      <Button className="mt-10 text-xl font-light">
-        <Link to="/test/three">Next</Link>
-      </Button>
+      <Link to="/test/three">
+        <Button className="mt-10 text-xl font-light">Next</Button>
+      </Link>
     </motion.div>
   );
 };

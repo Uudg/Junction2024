@@ -7,15 +7,20 @@ import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
 
 const PretestOne = () => {
-  const [myFiles, setMyFiles] = useState<any>(null)
+  const [myFiles, setMyFiles] = useState<any>(null);
+  const [education, setEducation] = useState<string>("");
+  const [type, setType] = useState<string>("");
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    setMyFiles(acceptedFiles)
-  }, [myFiles])
+  const onDrop = useCallback(
+    (acceptedFiles: any) => {
+      setMyFiles(acceptedFiles);
+    },
+    [myFiles]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const selectedFile = myFiles? myFiles[0] as File : null
+  const selectedFile = myFiles ? (myFiles[0] as File) : null;
 
   return (
     <motion.div
@@ -63,23 +68,23 @@ const PretestOne = () => {
         Choose your highest achieved degree
       </p>
       <div className="w-full flex flex-row gap-2 lg:gap-4 mt-2 justify-start flex-wrap">
-        <Option>🎒 High School</Option>
-        <Option>🎓 Bachelor</Option>
-        <Option>📝 Master</Option>
-        <Option>🔬 PHD</Option>
+        <Option isActive={education === "high_school"} onClick={() => setEducation("high_school")}>🎒 High School</Option>
+        <Option isActive={education === "bachelor"} onClick={() => setEducation("bachelor")}>🎓 Bachelor</Option>
+        <Option isActive={education === "master"} onClick={() => setEducation("master")}>📝 Master</Option>
+        <Option isActive={education === "phd"} onClick={() => setEducation("phd")}>🔬 PHD</Option>
       </div>
 
       <p className="avenir_font text-lg mt-10">Choose preferred type of work</p>
       <div className="w-full flex flex-row gap-2 lg:gap-4 mt-2 justify-start flex-wrap">
-        <Option>Full-time</Option>
-        <Option>Part-time</Option>
-        <Option>Contract</Option>
-        <Option>Internship</Option>
+        <Option isActive={type === "ft"} onClick={() => setType("ft")}>Full-time</Option>
+        <Option isActive={type === "pt"} onClick={() => setType("pt")}>Part-time</Option>
+        <Option isActive={type === "cn"} onClick={() => setType("cn")}>Contract</Option>
+        <Option isActive={type === "in"} onClick={() => setType("in")}>Internship</Option>
       </div>
 
-      <Button className="mt-10 text-xl font-light">
-        <Link to="/test/two">Next</Link>
-      </Button>
+      <Link to="/test/two">
+        <Button className="mt-10 text-xl font-light">Next</Button>
+      </Link>
     </motion.div>
   );
 };

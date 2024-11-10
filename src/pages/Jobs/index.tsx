@@ -1,3 +1,4 @@
+// import { JobFilter } from "../../components/jobFilter/JobFilter";
 import useJobs from "../../hooks/useJobs";
 import ProxyView from "../../Proxy";
 import TraitsChart from "./components/Chart";

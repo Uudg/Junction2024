@@ -1,11 +1,5 @@
+import { Option } from "../../components/option/Option";
 import { useTest } from "../Test/TestProvider";
-import { useRef } from "react";
-// import { gsap, ScrambleTextPlugin } from "gsap/all";
-// import ScrollTrigger from "gsap";
-// import { useGSAP } from "@gsap/react";
-
-
-// import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin'
 
 const options = [
   {
@@ -30,26 +24,10 @@ const options = [
   },
 ];
 
-// gsap.registerPlugin(useGSAP);
-// gsap.registerPlugin(ScrambleTextPlugin);
-
 export const TestFour = () => {
   const { id, questions, handleSaveAnswer } = useTest();
 
-//   console.log(ScrollTrigger);
-
   const foundQuestion = questions[id - 1];
-
-  const container = useRef<HTMLHeadingElement | null>(null);
-//   const tl = useRef<gsap.core.Timeline>();
-
-//   useGSAP(
-//     () => {
-//         if (!container.current) return
-//         gsap.to(container, {duration: 1, scrambleText: "THIS IS NEW TEXT"});//or customize things:
-//     },
-//     { scope: container }
-//   ); //
 
   if (!foundQuestion) return "No questions";
 
@@ -63,22 +41,20 @@ export const TestFour = () => {
         for better job matching.
       </h5>
 
-      <h5
-        className="avenir_font font-bold italic text-xl mt-12 text-center w-full"
-      >
+      <p className="mt-12 text-gray-500 text-sm">Q{id} of 10</p>
+      <h5 className="avenir_font font-bold italic text-xl mt-2 text-center w-full">
         "{foundQuestion.question}"
       </h5>
-      <div className="w-full flex flex-row gap-4 justify-center mt-4">
+      <div className="w-full flex flex-row gap-2 justify-center mt-4 flex-wrap">
         {options.map((option, i) => (
-          <div
+          <Option
             key={i}
-            className="avenir_font bg-white border border-slate-300 py-2 px-6 flex gap-2 items-center whitespace-nowrap cursor-pointer rounded-xl"
             onClick={() =>
               handleSaveAnswer(foundQuestion.questionID, option.value)
             }
           >
             {option.title}
-          </div>
+          </Option>
         ))}
       </div>
     </div>
