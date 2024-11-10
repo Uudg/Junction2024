@@ -5,7 +5,7 @@ import picThree from "../../assets/stepper_three.svg";
 import picFour from "../../assets/stepper_four.svg";
 import { Info } from "lucide-react";
 import logo from "../../assets/logo.svg";
-import nameLogo from "../../assets/CoreMatch_horizontal.svg";
+import nameLogo from "../../assets/logoName.svg";
 
 const steppers: Record<string, string> = {
   one: picOne,

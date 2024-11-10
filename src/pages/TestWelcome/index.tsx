@@ -2,13 +2,15 @@ import logo from "../../assets/logo.svg";
 import nameLogo from "../../assets/logoName.svg";
 import { Button } from "../../components/button/Button";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion"
 
 const TestWelcomePage = () => {
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center">
+    <motion.div className="gradient w-full h-screen flex flex-col justify-center items-center" initial={{opacity: 0}} animate={{ opacity: 1 }}>
       <div className="flex flex-col px-8 md:px-0">
         <div className="flex flex-row gap-2 items-center">
           <img src={logo} alt="logo here" />
+          {/* <AnimatedNameLogo /> */}
           <img src={nameLogo} alt="name logo here" />
         </div>
         <div className="avenir_font mt-2 text-3xl font-light">
@@ -21,7 +23,7 @@ const TestWelcomePage = () => {
           <Link to="/test/one">Discover</Link>
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -17,11 +17,16 @@
   outline: none;
 }
 
-body, #root {
+body,
+#root {
   width: 100%;
   height: 100svh;
   font-family: 'Poppins', sans-serif;
   background-color: #F8F8F8;
+}
+
+#root {
+  position: relative;
 }
 
 input::placeholder {
@@ -34,7 +39,7 @@ input::placeholder {
 }
 
 .gradient {
-    background: radial-gradient(68.03% 162.8% at 68.03% 47.22%, #FFFFFF 0%, #E8E5FF 33.33%, #FFFFFF 66.67%, #F0EEFF 100%);
+  background: radial-gradient(68.03% 162.8% at 68.03% 47.22%, #FFFFFF 0%, #E8E5FF 33.33%, #FFFFFF 66.67%, #F0EEFF 100%);
 }
 
 .avenir_font {

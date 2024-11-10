@@ -28,16 +28,3 @@ export const Sidebar = () => {
     </>
   );
 };
-
-// export const Sidebar = () => {
-//   const location = useLocation();
-//   const isRoot = location.pathname === "/";
-
-//   const md = window.matchMedia("(max-width: 1024px)");
-
-//   return (
-//     <div className={cn("flex", isRoot ? "w-full" : "w-24 shrink-0")}>
-//       <SidebarType isRoot={isRoot} />
-//     </div>
-//   );
-// };
