@@ -9,21 +9,28 @@ const useJobs = () => {
 
     const [chosenJob, setChosenJob] = useState<any>(null);
 
-    const handleJobSelect = (job: any) => {};
-
     useEffect(() => {
         if (results) {
-            loadAllJobs(results.job_matches[0].job_title);
+            loadAllJobs();
         }
     }, [results]);
 
-    const loadAllJobs = async (role: string) => {
+    const loadAllJobs = async () => {
+        console.log(location);
         setLoading(true);
         const sources = ["google", "indeed", "linkedin"];
         const allJobs = [];
 
         for (const source of sources) {
-            const response = await get_jobs(source, location, role);
+            const response = await get_jobs(source, location, {
+                top_feedback: results.feedback.slice(0, 3),
+                top_traits: results.feedback
+                    .slice(0, 3)
+                    .map((el: any) => el.Trait),
+                top_jobs: results.job_matches
+                    .slice(0, 3)
+                    .map((el: any) => el.job_title),
+            });
             allJobs.push(...response);
         }
 

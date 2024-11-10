@@ -35,13 +35,11 @@ const Jobs = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 xl:grid-cols-5 gap-2">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-2">
             {/* Filters */}
-            <div className="col-span-1 xl:col-span-1 p-4">
-                <JobFilter />
-            </div>
+            <div className="col-span-1 p-4">{/* <JobFilter /> */}</div>
             {/* List */}
-            <div className="col-span-1 xl:col-span-2 flex flex-col gap-4 h-screen overflow-y-scroll p-4">
+            <div className="col-span-1 flex flex-col gap-4 h-screen overflow-y-scroll p-4">
                 {loading && (
                     <div className="w-full h-full flex justify-center items-center bg-white p-4 border">
                         <Loader />
@@ -58,7 +56,7 @@ const Jobs = () => {
                     ))}
             </div>
             {/* Frame */}
-            <div className="col-span-1 xl:col-span-2 p-4 px-2 h-screen xl:block">
+            <div className="col-span-1 p-4 px-2 h-screen xl:block">
                 <div className="bg-white border rounded-xl w-full h-full p-4 flex flex-col gap-2">
                     {chosenJob && <ProxyView url={chosenJob.job_url} />}
                 </div>
