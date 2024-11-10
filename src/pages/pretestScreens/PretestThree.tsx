@@ -6,8 +6,9 @@ import { Select } from "../../components/select/Select";
 import { useCallback, useState } from "react";
 
 const benefitsOptions = [
+  { value: "insurance", label: "Health insurance" },
   { value: "free_beer", label: "Free beer" },
-  { value: "free_zaza", label: "Free zaza" },
+  { value: "leave", label: "Paid leave" },
 ];
 
 const teamSizeOptions = [
@@ -18,18 +19,20 @@ const teamSizeOptions = [
 ];
 
 const salaryOptions = [
-  { value: "1", label: "Linear" },
-  { value: "2", label: "Exponential" },
+  { value: "1", label: "Yearly" },
+  { value: "2", label: "Montly" },
+  { value: "3", label: "Weekly" },
 ];
 
 const autonomyOptions = [
   { value: "1", label: "Team player" },
-  { value: "2", label: "Zaza player" },
+  { value: "2", label: "Solo player" },
+  { value: "3", label: "Both" },
 ];
 
 const cultureOptions = [
-  { value: "1", label: "Uzbeki" },
-  { value: "2", label: "Kazahi" },
+  { value: "1", label: "Friendly" },
+  { value: "2", label: "Open" },
 ];
 
 export const PretestThree = () => {
