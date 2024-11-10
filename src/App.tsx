@@ -19,12 +19,12 @@ export default function App() {
   const loaderComponent = (
     <div
       className="gradient w-full h-screen flex justify-center items-center absolute top-0 left-0 z-30"
-    //   initial={{ opacity: 0 }}
-    //   animate={{ opacity: 1 }}
-    //   exit={{ opacity: 0 }}
-    //   key="entroLogo"
+      //   initial={{ opacity: 0 }}
+      //   animate={{ opacity: 1 }}
+      //   exit={{ opacity: 0 }}
+      //   key="entroLogo"
     >
-        <AnimatedNameLogo />
+      <AnimatedNameLogo />
       {/* <motion.div>
         <motion.img src={loaderLogo} alt="Loader logo" />
       </motion.div> */}
@@ -35,11 +35,7 @@ export default function App() {
 
   return (
     <AnimatePresence mode="wait">
-        <>
-        {cloneElement(loader ? loaderComponent : element, { key: location.pathname })}
-            {/* {loader ? loaderComponent : element} */}
-            {/* {element} */}
-        </>
+      <>{loader ? loaderComponent : element}</>
     </AnimatePresence>
   );
 }

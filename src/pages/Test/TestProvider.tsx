@@ -85,6 +85,8 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     load_questions();
   }, []);
 
+  console.log(answers);
+
   return (
     <TestContext.Provider
       value={{
