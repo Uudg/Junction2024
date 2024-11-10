@@ -21,10 +21,16 @@ const JobsChart = () => {
         if (results) {
             const chartData = results.job_matches
                 .slice(0, 10)
-                .map((feedback: any) => ({
-                    subject: feedback.job_title,
-                    value: feedback.similarity_score,
-                }));
+                .map((feedback: any) => {
+                    const score =
+                        feedback.similarity_score < 0
+                            ? 0
+                            : feedback.similarity_score;
+                    return {
+                        subject: feedback.job_title,
+                        value: score,
+                    };
+                });
             setData(chartData);
         }
     }, [results]);
