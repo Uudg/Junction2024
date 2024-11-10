@@ -67,7 +67,7 @@ const PretestOne = () => {
       <p className="avenir_font text-lg mt-10">
         Choose your highest achieved degree
       </p>
-      <div className="w-full flex flex-row gap-2 lg:gap-4 mt-2 justify-start flex-wrap">
+      <div className="w-full flex flex-row gap-2 lg:gap-4 mt-2 h-fit justify-start flex-wrap">
         <Option isActive={education === "high_school"} onClick={() => setEducation("high_school")}>🎒 High School</Option>
         <Option isActive={education === "bachelor"} onClick={() => setEducation("bachelor")}>🎓 Bachelor</Option>
         <Option isActive={education === "master"} onClick={() => setEducation("master")}>📝 Master</Option>

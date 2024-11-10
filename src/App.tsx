@@ -13,7 +13,7 @@ export default function App() {
     }, []);
 
     const loaderComponent = (
-        <div className="gradient w-full h-screen flex justify-center items-center absolute top-0 left-0 z-30">
+        <div className="gradient w-full h-screen flex justify-center items-center absolute top-0 left-0 z-30 overflow-hidden md:px-0 px-6">
             <AnimatedNameLogo />
         </div>
     );

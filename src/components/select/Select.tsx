@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { cn } from "../../utils/cn";
 
@@ -52,9 +52,8 @@ export const Select: FC<ISelect> = ({
 
   const vl = options.find(opt => opt.value === value)?.label || placeholderText
 
-  const handleChange = (e: MouseEvent) => {
-    const target = e.target as HTMLOptionElement;
-    onChange && onChange(target.value);
+  const handleChange = (newVal: string) => {
+    onChange && onChange(newVal);
     setIsOpen(false);
   };
 
@@ -84,7 +83,7 @@ export const Select: FC<ISelect> = ({
       <motion.button
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between w-4/5 bg-white items-center rounded-xl box-border p-3 border avenir_font text-gray-500 focus:border-purple-400 hover:outline focus:outline focus:border-1 outline-purple-300"
+        className="flex justify-between w-full md:w-4/5 bg-white items-center rounded-xl box-border p-3 border avenir_font text-gray-500 focus:border-purple-400 hover:outline focus:outline focus:border-1 outline-purple-300"
       >
         {vl}
         <motion.div
@@ -107,15 +106,15 @@ export const Select: FC<ISelect> = ({
         ref={listRef}
       >
         {options.map((opt) => (
-          <motion.option
+          <motion.li
             key={opt.value}
-            value={opt.value}
-            onClick={handleChange}
+            // value={opt.value}
+            onClick={() => handleChange(opt.value)}
             variants={itemVariants}
             className="py-2 px-4 hover:bg-gray-300 avenir_font"
           >
             {opt.label}
-          </motion.option>
+          </motion.li>
         ))}
       </motion.ul>
     </motion.nav>
