@@ -23,7 +23,7 @@ const TestProvider = ({ children }: { children: ReactNode }) => {
     const location = useLocation();
 
     const [userLocation] = useState<any>({
-        contry: "USA",
+        country: "USA",
         city: "NY",
     });
     const showSidebar = !location.pathname.split("/").includes("test");
