@@ -1,7 +1,6 @@
 import { FC, MouseEvent, useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { cn } from "../../utils/cn";
-import "./select.css";
 
 const itemVariants: Variants = {
   open: {
@@ -51,6 +50,8 @@ export const Select: FC<ISelect> = ({
   const [isOpen, setIsOpen] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
 
+  const vl = options.find(opt => opt.value === value)?.label || placeholderText
+
   const handleChange = (e: MouseEvent) => {
     const target = e.target as HTMLOptionElement;
     onChange && onChange(target.value);
@@ -85,7 +86,7 @@ export const Select: FC<ISelect> = ({
         onClick={() => setIsOpen(!isOpen)}
         className="flex justify-between w-4/5 bg-white items-center rounded-xl box-border p-3 border avenir_font text-gray-500 focus:border-purple-400 hover:outline focus:outline focus:border-1 outline-purple-300"
       >
-        {value || placeholderText}
+        {vl}
         <motion.div
           variants={{
             open: { rotate: 180 },
