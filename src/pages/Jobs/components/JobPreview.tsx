@@ -8,9 +8,7 @@ const JobPreview = ({ job, select, bgColor, selected }: any) => {
 
     return (
         <div
-            className={`gap-2 flex ${
-                selected ? "bg-white" : "bg-gray-200"
-            } p-2 border border-slate-200 rounded-3xl md:flex-row`}
+            className={`gap-2 flex ${"bg-white"} p-2 border border-slate-200 rounded-3xl md:flex-row`}
         >
             <div
                 className={`flex flex-col ${bgColor} rounded-2xl p-4 gap-8 justify-between w-1/2`}
@@ -51,7 +49,7 @@ const JobPreview = ({ job, select, bgColor, selected }: any) => {
             </div>
             <div className="h-full flex flex-col justify-between p-4 md:px-2 md:items-start items-center w-1/2 pr-4">
                 <div className="flex flex-row w-full justify-between gap-4">
-                    <div className="flex flex-col mb-4">
+                    <div className="flex flex-col mb-4 text-sm">
                         {job.min_amount && job.max_amount ? (
                             <div className="flex flex-col mb-2">
                                 <div className="flex items-center gap-2">
@@ -64,7 +62,7 @@ const JobPreview = ({ job, select, bgColor, selected }: any) => {
                         ) : (
                             <div className="flex items-center gap-2">
                                 <div className="font-semibold text-xs">
-                                    No data available
+                                    Not declared
                                 </div>
                             </div>
                         )}
