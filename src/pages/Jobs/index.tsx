@@ -87,11 +87,6 @@ const Jobs = () => {
                             job={el}
                             select={setChosenJob}
                             bgColor={el.bgColor}
-                            selected={
-                                !chosenJob &&
-                                chosenJob?.job_title === el.job_title &&
-                                el.company === el.company
-                            }
                         />
                     ))}
             </div>

@@ -3,7 +3,7 @@ import { fDate } from "../../../utils/formatDate";
 import { capitalize } from "../../../utils/capitalize";
 import { useTest } from "../../Test/TestProvider";
 
-const JobPreview = ({ job, select, bgColor, selected }: any) => {
+const JobPreview = ({ job, select, bgColor }: any) => {
     const { location } = useTest();
 
     return (
